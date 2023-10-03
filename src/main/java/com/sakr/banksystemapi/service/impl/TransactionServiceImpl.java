@@ -2,7 +2,6 @@ package com.sakr.banksystemapi.service.impl;
 
 import com.sakr.banksystemapi.entity.Account;
 import com.sakr.banksystemapi.entity.Transaction;
-import com.sakr.banksystemapi.entity.User;
 import com.sakr.banksystemapi.entity.enumtypes.TransactionType;
 import com.sakr.banksystemapi.exceptions.customexceptions.ResourceNotFoundException;
 import com.sakr.banksystemapi.mapper.TransactionHistoryMapper;
@@ -11,10 +10,7 @@ import com.sakr.banksystemapi.model.TransactionRequestModel;
 import com.sakr.banksystemapi.repository.AccountRepository;
 import com.sakr.banksystemapi.repository.TransactionRepository;
 import com.sakr.banksystemapi.service.TransactionService;
-import com.sakr.banksystemapi.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
@@ -26,7 +22,6 @@ public class TransactionServiceImpl implements TransactionService {
 
     private final TransactionRepository transactionRepository;
     private final AccountRepository accountRepository;
-    private final UserService userService;
     private final TransactionHistoryMapper transactionHistoryMapper;
     @Override
     public void deposit(TransactionRequestModel request) {

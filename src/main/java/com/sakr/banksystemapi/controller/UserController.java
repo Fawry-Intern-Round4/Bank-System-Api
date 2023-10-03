@@ -5,7 +5,6 @@ import com.sakr.banksystemapi.model.AuthenticationResponseModel;
 import com.sakr.banksystemapi.model.RegisterRequestModel;
 import com.sakr.banksystemapi.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

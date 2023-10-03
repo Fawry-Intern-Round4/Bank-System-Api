@@ -1,7 +1,6 @@
 package com.sakr.banksystemapi.model;
 
 import com.sakr.banksystemapi.entity.enumtypes.TransactionType;
-import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

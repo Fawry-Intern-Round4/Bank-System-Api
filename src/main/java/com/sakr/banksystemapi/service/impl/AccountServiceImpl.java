@@ -4,9 +4,7 @@ import com.sakr.banksystemapi.entity.Account;
 import com.sakr.banksystemapi.entity.User;
 import com.sakr.banksystemapi.mapper.AccountMapper;
 import com.sakr.banksystemapi.model.AccountResponseModel;
-import com.sakr.banksystemapi.repository.AccountRepository;
 import com.sakr.banksystemapi.repository.UserRepository;
-import com.sakr.banksystemapi.security.JwtService;
 import com.sakr.banksystemapi.service.AccountGeneratorService;
 import com.sakr.banksystemapi.service.AccountService;
 import com.sakr.banksystemapi.service.UserService;
@@ -20,7 +18,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class AccountServiceImpl implements AccountService {
 
-    private final AccountRepository accountRepository;
     private final UserRepository userRepository;
     private final UserService userService;
     private final AccountGeneratorService accountGeneratorService;
