@@ -2,16 +2,22 @@ package com.sakr.banksystemapi.service.impl;
 
 import com.sakr.banksystemapi.entity.Account;
 import com.sakr.banksystemapi.entity.Transaction;
+import com.sakr.banksystemapi.entity.User;
 import com.sakr.banksystemapi.entity.enumtypes.TransactionType;
+import com.sakr.banksystemapi.mapper.TransactionHistoryMapper;
+import com.sakr.banksystemapi.model.TransactionHistoryModel;
 import com.sakr.banksystemapi.model.TransactionRequestModel;
 import com.sakr.banksystemapi.repository.AccountRepository;
 import com.sakr.banksystemapi.repository.TransactionRepository;
 import com.sakr.banksystemapi.service.TransactionService;
+import com.sakr.banksystemapi.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -19,6 +25,8 @@ public class TransactionServiceImpl implements TransactionService {
 
     private final TransactionRepository transactionRepository;
     private final AccountRepository accountRepository;
+    private final UserService userService;
+    private final TransactionHistoryMapper transactionHistoryMapper;
     @Override
     public void deposit(TransactionRequestModel request) {
         validateCard(request);
@@ -61,6 +69,18 @@ public class TransactionServiceImpl implements TransactionService {
         transactionRepository.save(transaction);
 
     }
+
+    @Override
+    public List<TransactionHistoryModel> transactionHistory(String cardNumber) {
+
+        Account account = accountRepository.findByCardNumber(cardNumber)
+                .orElseThrow(() -> new UsernameNotFoundException("there is no such account"));
+
+        List<Transaction> transactions = transactionRepository.findByAccount(account);
+
+        return transactions.stream().map(transactionHistoryMapper::toResponse).toList();
+    }
+
 
     private void validateCard(TransactionRequestModel request){
         boolean valid =
