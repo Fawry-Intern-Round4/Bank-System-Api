@@ -1,7 +1,3 @@
-# Bank-System-Api
-
-
-### ERD
 ```mermaid
 ---
 title: Bank Scema
