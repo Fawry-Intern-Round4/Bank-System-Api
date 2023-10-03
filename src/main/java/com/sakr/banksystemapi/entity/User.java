@@ -55,9 +55,6 @@ public class User implements UserDetails {
     @Column(name = "created_at", nullable = false)
     private Timestamp createdAt;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
-    private List<Account> accounts;
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(userRole.name()));
