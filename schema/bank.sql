@@ -15,6 +15,7 @@ CREATE TABLE users (
     password VARCHAR(255) NOT NULL,
     phone_number VARCHAR(255) NOT NULL,
     address VARCHAR(255) NOT NULL,
+    status BOOLEAN NOT NULL,
     created_at DATETIME NOT NULL,
     PRIMARY KEY (id)
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
@@ -24,6 +25,7 @@ CREATE TABLE accounts (
     card_number VARCHAR(255) NOT NULL unique,
     cvv VARCHAR(255) NOT NULL,
     balance DECIMAL(10,2) NOT NULL,
+    status BOOLEAN NOT NULL,
     created_at DATETIME NOT NULL,
     user_id INT NOT NULL,
     PRIMARY KEY (id),

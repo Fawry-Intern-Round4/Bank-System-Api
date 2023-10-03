@@ -32,6 +32,9 @@ public class Account {
     @Column(name = "balance", nullable = false)
     private BigDecimal balance;
 
+    @Column(name = "status", nullable = false)
+    private Boolean status;
+
     @Column(name = "created_at", nullable = false)
     private Timestamp createdAt;
 

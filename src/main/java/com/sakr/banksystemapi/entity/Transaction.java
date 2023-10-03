@@ -36,9 +36,6 @@ public class Transaction {
     @Column(name = "created_at", nullable = false)
     private Timestamp createdAt;
 
-    @Column(name = "account_id", nullable = false)
-    private int accountId;
-
     @ManyToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,
             CascadeType.PERSIST,CascadeType.REFRESH})
     @JoinColumn(name = "account_id")
