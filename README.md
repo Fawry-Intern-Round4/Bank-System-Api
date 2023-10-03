@@ -4,7 +4,7 @@
 ### ERD
 ```mermaid
 ---
-title: Bank Scema
+title: Bank Schema
 ---
 
 erDiagram

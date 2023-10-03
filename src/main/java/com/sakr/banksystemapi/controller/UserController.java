@@ -1,4 +1,4 @@
-package com.sakr.banksystemapi.controller.auth;
+package com.sakr.banksystemapi.controller;
 
 import com.sakr.banksystemapi.model.AuthenticationRequestModel;
 import com.sakr.banksystemapi.model.AuthenticationResponseModel;
