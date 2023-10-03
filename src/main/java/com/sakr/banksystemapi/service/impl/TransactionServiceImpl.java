@@ -4,6 +4,7 @@ import com.sakr.banksystemapi.entity.Account;
 import com.sakr.banksystemapi.entity.Transaction;
 import com.sakr.banksystemapi.entity.User;
 import com.sakr.banksystemapi.entity.enumtypes.TransactionType;
+import com.sakr.banksystemapi.exceptions.customexceptions.ResourceNotFoundException;
 import com.sakr.banksystemapi.mapper.TransactionHistoryMapper;
 import com.sakr.banksystemapi.model.TransactionHistoryModel;
 import com.sakr.banksystemapi.model.TransactionRequestModel;
@@ -32,7 +33,7 @@ public class TransactionServiceImpl implements TransactionService {
         validateCard(request);
 
         Account account = accountRepository.findByCardNumber(request.getCardNumber())
-                .orElseThrow(()-> new UsernameNotFoundException("there is no such account"));
+                .orElseThrow(()-> new ResourceNotFoundException("there is no such account"));
 
         account.setBalance(account.getBalance().add(request.getAmount()));
 
@@ -53,7 +54,7 @@ public class TransactionServiceImpl implements TransactionService {
         validateCard(request);
 
         Account account = accountRepository.findByCardNumber(request.getCardNumber())
-                .orElseThrow(()-> new UsernameNotFoundException("there is no such account"));
+                .orElseThrow(()-> new ResourceNotFoundException("there is no such account"));
 
         account.setBalance(account.getBalance().subtract(request.getAmount()));
 
@@ -74,7 +75,7 @@ public class TransactionServiceImpl implements TransactionService {
     public List<TransactionHistoryModel> transactionHistory(String cardNumber) {
 
         Account account = accountRepository.findByCardNumber(cardNumber)
-                .orElseThrow(() -> new UsernameNotFoundException("there is no such account"));
+                .orElseThrow(() -> new ResourceNotFoundException("there is no such account"));
 
         List<Transaction> transactions = transactionRepository.findByAccount(account);
 
@@ -88,7 +89,7 @@ public class TransactionServiceImpl implements TransactionService {
 
         System.out.println(valid);
         if(!valid){
-            throw new UsernameNotFoundException("it's not valid card");
+            throw new ResourceNotFoundException("it's not valid card");
         }
     }
 

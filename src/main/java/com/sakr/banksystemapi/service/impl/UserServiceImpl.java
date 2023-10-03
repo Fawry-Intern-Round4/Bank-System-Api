@@ -1,6 +1,7 @@
 package com.sakr.banksystemapi.service.impl;
 
 import com.sakr.banksystemapi.entity.User;
+import com.sakr.banksystemapi.exceptions.customexceptions.ResourceNotFoundException;
 import com.sakr.banksystemapi.mapper.UserMapper;
 import com.sakr.banksystemapi.model.AuthenticationRequestModel;
 import com.sakr.banksystemapi.model.AuthenticationResponseModel;
@@ -26,7 +27,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findUserByEmail(String email) {
         return userRepository.findByEmail(email)
-                .orElseThrow(() -> new UsernameNotFoundException("User " + email + " Not Found"));
+                .orElseThrow(() -> new ResourceNotFoundException("User " + email + " Not Found"));
     }
 
 
@@ -34,7 +35,7 @@ public class UserServiceImpl implements UserService {
     public AuthenticationResponseModel register(RegisterRequestModel request) {
         if(userRepository.existsByEmail(request.getEmail()) ||
         userRepository.existsByPhoneNumber(request.getPhoneNumber())){
-            throw new UsernameNotFoundException("Email or Phone Number is already exists");
+            throw new ResourceNotFoundException("Email or Phone Number is already exists");
         }
 
         User user = userMapper.toEntity(request);
