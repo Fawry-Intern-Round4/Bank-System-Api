@@ -11,5 +11,5 @@ public interface TransactionService {
 
     void withdraw(TransactionRequestModel request);
 
-    List<TransactionHistoryModel> transactionHistory(String cardNumber);
+    List<TransactionHistoryModel> transactionHistory(int cardId);
 }

@@ -14,9 +14,9 @@ public class TransactionHistoryController {
 
     private final TransactionService transactionService;
 
-    @GetMapping("/{cardNumber}")
+    @GetMapping("/{cardId}")
     public List<TransactionHistoryModel> getCardHistory(
-            @PathVariable String cardNumber) {
-        return transactionService.transactionHistory(cardNumber);
+            @PathVariable int cardId) {
+        return transactionService.transactionHistory(cardId);
     }
 }

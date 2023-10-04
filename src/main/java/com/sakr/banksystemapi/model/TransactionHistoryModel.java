@@ -14,6 +14,7 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 @AllArgsConstructor
 public class TransactionHistoryModel {
+    private int id;
     private TransactionType transactionType;
     private BigDecimal amount;
     private String note;

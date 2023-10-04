@@ -12,6 +12,7 @@ public class AccountMapperImpl implements AccountMapper {
     @Override
     public AccountResponseModel toResponse(Account account) {
         return AccountResponseModel.builder()
+                .id(account.getId())
                 .cardNumber(account.getCardNumber())
                 .cvv(account.getCvv())
                 .balance(account.getBalance())

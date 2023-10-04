@@ -13,6 +13,7 @@ public class TransactionHistoryMapperImpl implements TransactionHistoryMapper {
     public TransactionHistoryModel toResponse(Transaction transaction) {
         return TransactionHistoryModel
                 .builder()
+                .id(transaction.getId())
                 .transactionType(transaction.getTransactionType())
                 .amount(transaction.getAmount())
                 .note(transaction.getNote())

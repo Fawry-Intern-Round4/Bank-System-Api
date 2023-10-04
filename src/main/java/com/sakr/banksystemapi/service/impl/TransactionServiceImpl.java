@@ -67,9 +67,9 @@ public class TransactionServiceImpl implements TransactionService {
     }
 
     @Override
-    public List<TransactionHistoryModel> transactionHistory(String cardNumber) {
+    public List<TransactionHistoryModel> transactionHistory(int cardId) {
 
-        Account account = accountRepository.findByCardNumber(cardNumber)
+        Account account = accountRepository.findById(cardId)
                 .orElseThrow(() -> new ResourceNotFoundException("there is no such account"));
 
         List<Transaction> transactions = transactionRepository.findByAccount(account);

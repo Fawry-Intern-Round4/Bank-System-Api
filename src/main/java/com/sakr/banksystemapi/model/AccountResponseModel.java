@@ -13,6 +13,7 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AccountResponseModel {
+    private int id;
     private String cardNumber;
     private String cvv;
     private BigDecimal balance;
