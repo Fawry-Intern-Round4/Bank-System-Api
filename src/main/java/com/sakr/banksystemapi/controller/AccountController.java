@@ -1,12 +1,10 @@
 package com.sakr.banksystemapi.controller;
 
-import com.sakr.banksystemapi.model.AccountResponseModel;
+import com.sakr.banksystemapi.model.account.AccountResponseModel;
+import com.sakr.banksystemapi.model.transaction.TransactionHistoryModel;
 import com.sakr.banksystemapi.service.AccountService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -27,4 +25,9 @@ public class AccountController {
         return accountService.getUserAccounts();
     }
 
+    @GetMapping("/{AccountId}")
+    public List<TransactionHistoryModel> getAccountHistory(
+            @PathVariable int AccountId) {
+        return accountService.transactionHistory(AccountId);
+    }
 }

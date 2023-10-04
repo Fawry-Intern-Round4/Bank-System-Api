@@ -2,13 +2,14 @@ package com.sakr.banksystemapi.service.impl;
 
 import com.sakr.banksystemapi.entity.User;
 import com.sakr.banksystemapi.exceptions.customexceptions.ResourceNotFoundException;
-import com.sakr.banksystemapi.mapper.UserMapper;
-import com.sakr.banksystemapi.model.AuthenticationRequestModel;
-import com.sakr.banksystemapi.model.AuthenticationResponseModel;
-import com.sakr.banksystemapi.model.RegisterRequestModel;
+import com.sakr.banksystemapi.mapper.AuthenticationMapper;
+import com.sakr.banksystemapi.model.auth.AuthenticationRequestModel;
+import com.sakr.banksystemapi.model.auth.AuthenticationResponseModel;
+import com.sakr.banksystemapi.model.auth.RegisterRequestModel;
 import com.sakr.banksystemapi.repository.UserRepository;
 import com.sakr.banksystemapi.security.JwtService;
-import com.sakr.banksystemapi.service.UserService;
+import com.sakr.banksystemapi.service.AuthenticationService;
+import com.sakr.banksystemapi.service.UserInfoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -16,18 +17,13 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class UserServiceImpl implements UserService {
+public class AuthenticationServiceImpl implements AuthenticationService {
 
     private final UserRepository userRepository;
-    private final UserMapper userMapper;
+    private final AuthenticationMapper authenticationMapper;
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
-
-    @Override
-    public User findUserByEmail(String email) {
-        return userRepository.findByEmail(email)
-                .orElseThrow(() -> new ResourceNotFoundException("User " + email + " Not Found"));
-    }
+    private final UserInfoService userService;
 
 
     @Override
@@ -37,10 +33,10 @@ public class UserServiceImpl implements UserService {
             throw new ResourceNotFoundException("Email or Phone Number is already exists");
         }
 
-        User user = userMapper.toEntity(request);
+        User user = authenticationMapper.toEntity(request);
         userRepository.save(user);
 
-        return userMapper.toAuthResponse(jwtService.generateToken(user));
+        return authenticationMapper.toAuthResponse(jwtService.generateToken(user));
     }
 
     @Override
@@ -52,8 +48,8 @@ public class UserServiceImpl implements UserService {
                 )
         );
 
-        User user = findUserByEmail(request.getEmail());
+        User user = userService.findUserByEmail(request.getEmail());
 
-        return userMapper.toAuthResponse(jwtService.generateToken(user));
+        return authenticationMapper.toAuthResponse(jwtService.generateToken(user));
     }
 }

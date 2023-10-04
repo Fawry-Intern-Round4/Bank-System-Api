@@ -2,7 +2,7 @@ package com.sakr.banksystemapi.mapper.Impl;
 
 import com.sakr.banksystemapi.entity.Account;
 import com.sakr.banksystemapi.mapper.AccountMapper;
-import com.sakr.banksystemapi.model.AccountResponseModel;
+import com.sakr.banksystemapi.model.account.AccountResponseModel;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

@@ -1,7 +1,7 @@
 package com.sakr.banksystemapi.mapper;
 
 import com.sakr.banksystemapi.entity.Transaction;
-import com.sakr.banksystemapi.model.TransactionHistoryModel;
+import com.sakr.banksystemapi.model.transaction.TransactionHistoryModel;
 
 public interface TransactionHistoryMapper {
 

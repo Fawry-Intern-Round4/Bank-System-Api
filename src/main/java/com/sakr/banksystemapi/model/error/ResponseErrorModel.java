@@ -1,4 +1,4 @@
-package com.sakr.banksystemapi.model;
+package com.sakr.banksystemapi.model.error;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

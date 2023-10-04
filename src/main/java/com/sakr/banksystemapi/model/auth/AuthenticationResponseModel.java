@@ -1,4 +1,4 @@
-package com.sakr.banksystemapi.model;
+package com.sakr.banksystemapi.model.auth;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +9,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class AuthenticationRequestModel {
-    private String email;
-    private String password;
+public class AuthenticationResponseModel {
+
+    private String token;
+
 }

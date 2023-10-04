@@ -1,9 +1,9 @@
 package com.sakr.banksystemapi.controller;
 
-import com.sakr.banksystemapi.model.AuthenticationRequestModel;
-import com.sakr.banksystemapi.model.AuthenticationResponseModel;
-import com.sakr.banksystemapi.model.RegisterRequestModel;
-import com.sakr.banksystemapi.service.UserService;
+import com.sakr.banksystemapi.model.auth.AuthenticationRequestModel;
+import com.sakr.banksystemapi.model.auth.AuthenticationResponseModel;
+import com.sakr.banksystemapi.model.auth.RegisterRequestModel;
+import com.sakr.banksystemapi.service.AuthenticationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/auth")
 @RequiredArgsConstructor
-public class UserController {
+public class AuthenticationController {
 
-    private final UserService userService;
+    private final AuthenticationService userService;
 
     @PostMapping("/register")
     public AuthenticationResponseModel register(

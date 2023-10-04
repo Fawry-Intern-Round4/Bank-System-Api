@@ -1,6 +1,6 @@
 package com.sakr.banksystemapi.controller;
 
-import com.sakr.banksystemapi.model.TransactionRequestModel;
+import com.sakr.banksystemapi.model.transaction.TransactionRequestModel;
 import com.sakr.banksystemapi.service.TransactionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;

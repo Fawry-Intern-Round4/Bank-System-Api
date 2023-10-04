@@ -1,5 +1,6 @@
-package com.sakr.banksystemapi.model;
+package com.sakr.banksystemapi.model.transaction;
 
+import com.sakr.banksystemapi.entity.enumtypes.TransactionType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,11 +13,10 @@ import java.sql.Timestamp;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class AccountResponseModel {
+public class TransactionHistoryModel {
     private int id;
-    private String cardNumber;
-    private String cvv;
-    private BigDecimal balance;
-    private Boolean status;
+    private TransactionType transactionType;
+    private BigDecimal amount;
+    private String note;
     private Timestamp createdAt;
 }

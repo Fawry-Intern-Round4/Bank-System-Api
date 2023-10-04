@@ -2,7 +2,7 @@ package com.sakr.banksystemapi.mapper.Impl;
 
 import com.sakr.banksystemapi.entity.Transaction;
 import com.sakr.banksystemapi.mapper.TransactionHistoryMapper;
-import com.sakr.banksystemapi.model.TransactionHistoryModel;
+import com.sakr.banksystemapi.model.transaction.TransactionHistoryModel;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
