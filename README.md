@@ -121,13 +121,6 @@ To dockerize the Spring Boot project using the provided Dockerfile, follow these
 
 7. The Spring Boot application is now running inside the Docker container.
 
-**Explanation of Dockerfile:**
-- The Dockerfile uses multi-stage builds to keep the final image lightweight and efficient.
-- The first stage (`build`) uses a Maven-based image to build the Java application. It copies the source code and `pom.xml`, then runs Maven to package the application as a JAR file.
-- The second stage (`package`) uses the OpenJDK image to create a runtime image for the application. It copies the JAR file built in the first stage and sets it as the entry point to run the Spring Boot application.
-- The `EXPOSE 8080` instruction exposes port 8080 inside the container.
-- The `ENTRYPOINT` instruction sets the command that will be executed when the container starts. In this case, it runs the Spring Boot application using the `java -jar` command with the specified JAR file.
-
 After following these steps, your Spring Boot application should be successfully dockerized and running inside a Docker container.
 
 ## How to Contribute
