@@ -8,6 +8,46 @@ api to manage Bank System provide a basics for managing banking operations.
 ### API URL at render
 `https://bank-api-service-iiyh.onrender.com`
 
+### ERD
+```mermaid
+---
+title: Bank Schema
+---
+
+erDiagram
+accounts {
+varchar card_number
+varchar cvv
+decimal balance
+boolean status
+datetime created_at
+int id PK
+}
+transactions {
+varchar transaction_type
+decimal amount
+text note
+datetime created_at
+int id PK
+}
+users {
+varchar user_role
+varchar first_name
+varchar last_name
+varchar email
+varchar password
+varchar phone_number
+varchar address
+boolean status
+datetime created_at
+int id PK
+}
+
+
+users ||--o{ accounts : "has"
+accounts ||--o{ transactions : "logs"
+```
+
 
 
 ## Requirements
@@ -90,47 +130,6 @@ To dockerize the Spring Boot project using the provided Dockerfile, follow these
 
 After following these steps, your Spring Boot application should be successfully dockerized and running inside a Docker container.
 
-
-
-### ERD
-```mermaid
----
-title: Bank Schema
----
-
-erDiagram
-accounts {
-varchar card_number
-varchar cvv
-decimal balance
-boolean status
-datetime created_at
-int id PK
-}
-transactions {
-varchar transaction_type
-decimal amount
-text note
-datetime created_at
-int id PK
-}
-users {
-varchar user_role
-varchar first_name
-varchar last_name
-varchar email
-varchar password
-varchar phone_number
-varchar address
-boolean status
-datetime created_at
-int id PK
-}
-
-
-users ||--o{ accounts : "has"
-accounts ||--o{ transactions : "logs"
-```
 ## How to Contribute
 
 We welcome and encourage developers to contribute to the project and help us make it even better. If you are interested in contributing, follow these steps:
