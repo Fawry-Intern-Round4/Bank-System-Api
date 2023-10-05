@@ -11,6 +11,7 @@ import com.sakr.banksystemapi.service.TransactionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 @Service
@@ -21,45 +22,57 @@ public class TransactionServiceImpl implements TransactionService {
     private final AccountRepository accountRepository;
     @Override
     public void deposit(TransactionRequestModel request) {
+
         validateCard(request);
 
         Account account = accountRepository.findByCardNumber(request.getCardNumber())
                 .orElseThrow(()-> new ResourceNotFoundException("there is no such account"));
 
-        account.setBalance(account.getBalance().add(request.getAmount()));
-
-        Transaction transaction =
-                Transaction.builder()
-                        .transactionType(TransactionType.DEPOSIT)
-                        .amount(request.getAmount())
-                        .note("Add " + request.getAmount() + " to " + account.getUser().getEmail())
-                        .createdAt(new Timestamp(System.currentTimeMillis()))
-                        .account(account)
-                        .build();
-
-        transactionRepository.save(transaction);
+        performDeposit(account, request.getAmount());
     }
 
     @Override
     public void withdraw(TransactionRequestModel request) {
+
         validateCard(request);
 
         Account account = accountRepository.findByCardNumber(request.getCardNumber())
                 .orElseThrow(()-> new ResourceNotFoundException("there is no such account"));
 
-        account.setBalance(account.getBalance().subtract(request.getAmount()));
+       performWithdraw(account, request.getAmount());
+    }
 
+    private void performDeposit(Account account, BigDecimal amount){
+        account.setBalance(account.getBalance().add(amount));
+
+        String transactionNote = "Add " + amount + " to " + account.getUser().getEmail();
+
+        saveTransaction(account, amount, transactionNote);
+    }
+
+    private void performWithdraw(Account account, BigDecimal amount){
+        if(account.getBalance().compareTo(amount) < 0){
+            throw new ResourceNotFoundException("You Don't Have Enough Money In Your Card");
+        }
+        account.setBalance(account.getBalance().subtract(amount));
+
+        String transactionNote = "subtract " + amount + " from " + account.getUser().getEmail();
+
+        saveTransaction(account, amount, transactionNote);
+    }
+
+
+    private void saveTransaction(Account account,BigDecimal amount, String transactionNote){
         Transaction transaction =
                 Transaction.builder()
                         .transactionType(TransactionType.WITHDRAW)
-                        .amount(request.getAmount())
-                        .note("subtract " + request.getAmount() + " from " + account.getUser().getEmail())
+                        .amount(amount)
+                        .note(transactionNote)
                         .createdAt(new Timestamp(System.currentTimeMillis()))
                         .account(account)
                         .build();
 
         transactionRepository.save(transaction);
-
     }
 
 
@@ -67,7 +80,6 @@ public class TransactionServiceImpl implements TransactionService {
         boolean valid =
                 accountRepository.existsByCardNumberAndCvv(request.getCardNumber(), request.getCvv());
 
-        System.out.println(valid);
         if(!valid){
             throw new ResourceNotFoundException("it's not valid card");
         }
