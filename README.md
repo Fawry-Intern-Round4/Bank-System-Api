@@ -1,12 +1,19 @@
 # Bank-System-Api
-api to manage Bank System provide a basics for managing banking operations.
-
+This is a Spring Boot application for a banking system. It provides functionality for managing user accounts, transactions, and user information. The application is built using the Spring Boot framework and utilizes a database to store banking data.
 
 #### Discover endpoints of bank System
 [![Run in Postman](https://run.pstmn.io/button.svg)](https://www.postman.com/satellite-astronaut-99993862/workspace/public/collection/27464457-24459eb2-df4b-4880-ac52-381285783e37?action=share&creator=27464457)
 
 ### API URL at render
 `https://bank-api-service-iiyh.onrender.com`
+
+### Functionality
+
+The Spring Boot bank application provides the following functionality:
+- Users: Manages user information for the banking system. Users have a user role, first name, last name, email, password, phone number, address, status, and creation date. 
+- Accounts: Represents bank accounts associated with users. Accounts have a card number, CVV, balance, status, creation date, and are linked to a specific user. 
+- Transactions: Logs financial transactions made within the banking system. Transactions have a transaction type, amount, note, creation date, and are associated with a specific account.
+
 
 ### ERD
 ```mermaid
@@ -106,7 +113,7 @@ To dockerize the Spring Boot project using the provided Dockerfile, follow these
 5. Build the Docker image using the following command:
 
    ```bash
-   docker build -t quiz-api:latest .
+   docker build -t bank-api:latest .
    ```
 
    This command tells Docker to build an image with the tag `bank-api:latest` using the current directory (`.`) as the build context.
