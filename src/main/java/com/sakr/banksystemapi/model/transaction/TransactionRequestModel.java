@@ -16,12 +16,12 @@ public class TransactionRequestModel {
 
     @NotEmpty(message = "The Card Number is required.")
     @Size(min = 16, max = 16, message = "the Card Numbers Must be Exactly 16 Numbers")
-    @Pattern(regexp = "^(0|[1-9][0-9]*)$",message = "Card Numbers Can't Contain Chars")
+    @Pattern(regexp = "^[0-9]+$",message = "Card Numbers Can't Contain Chars")
     private String cardNumber;
 
     @NotEmpty(message = "The CVV is required.")
     @Size(min = 3, max = 3, message = "the CVV Must be Exactly 3 Numbers")
-    @Pattern(regexp = "^(0|[1-9][0-9]*)$",message = "CVV Can't Contain Chars")
+    @Pattern(regexp = "^[0-9]+$",message = "CVV Can't Contain Chars")
     private String cvv;
 
     @NotNull(message = "The Money Amount is required.")

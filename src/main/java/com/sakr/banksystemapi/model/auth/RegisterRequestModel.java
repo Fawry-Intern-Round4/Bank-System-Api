@@ -32,7 +32,7 @@ public class RegisterRequestModel {
 
     @NotEmpty(message = "The phoneNumber is required.")
     @Size(min = 11, max = 15, message = "The length of phoneNumber must be between 11 and 15 Number.")
-    @Pattern(regexp = "^(0|[1-9][0-9]*)$",message = "You Can Only Write Numbers")
+    @Pattern(regexp = "^[0-9]+$",message = "You Can Only Write Numbers")
     private String phoneNumber;
 
     @NotEmpty(message = "The address is required.")
