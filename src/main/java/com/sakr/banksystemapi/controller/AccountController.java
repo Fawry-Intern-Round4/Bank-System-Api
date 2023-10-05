@@ -3,6 +3,7 @@ package com.sakr.banksystemapi.controller;
 import com.sakr.banksystemapi.model.account.AccountResponseModel;
 import com.sakr.banksystemapi.model.transaction.TransactionHistoryModel;
 import com.sakr.banksystemapi.service.AccountService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,7 +28,9 @@ public class AccountController {
 
     @GetMapping("/{AccountId}")
     public List<TransactionHistoryModel> getAccountHistory(
-            @PathVariable int AccountId) {
+            @Valid @PathVariable int AccountId
+    ) {
         return accountService.transactionHistory(AccountId);
     }
 }
+

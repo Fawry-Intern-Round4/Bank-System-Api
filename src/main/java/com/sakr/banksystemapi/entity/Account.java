@@ -22,7 +22,7 @@ public class Account {
     @Column(name = "id", nullable = false)
     private int id;
 
-    @Column(name = "card_number", nullable = false)
+    @Column(name = "card_number", nullable = false, unique = true)
     private String cardNumber;
 
     @Column(name = "cvv", nullable = false)
