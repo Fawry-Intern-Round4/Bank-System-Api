@@ -1,7 +1,6 @@
 package com.sakr.banksystemapi.service.impl;
 
 import com.sakr.banksystemapi.entity.User;
-import com.sakr.banksystemapi.exceptions.customexceptions.ResourceNotFoundException;
 import com.sakr.banksystemapi.mapper.AuthenticationMapper;
 import com.sakr.banksystemapi.model.auth.AuthenticationRequestModel;
 import com.sakr.banksystemapi.model.auth.AuthenticationResponseModel;
@@ -9,7 +8,7 @@ import com.sakr.banksystemapi.model.auth.RegisterRequestModel;
 import com.sakr.banksystemapi.repository.UserRepository;
 import com.sakr.banksystemapi.security.JwtService;
 import com.sakr.banksystemapi.service.AuthenticationService;
-import com.sakr.banksystemapi.service.UserInfoService;
+import com.sakr.banksystemapi.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -19,24 +18,27 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class AuthenticationServiceImpl implements AuthenticationService {
 
-    private final UserRepository userRepository;
-    private final AuthenticationMapper authenticationMapper;
+    private final UserService userService;
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
-    private final UserInfoService userService;
+    private final AuthenticationMapper authenticationMapper;
 
 
     @Override
     public AuthenticationResponseModel register(RegisterRequestModel request) {
-        if(userRepository.existsByEmail(request.getEmail()) ||
-        userRepository.existsByPhoneNumber(request.getPhoneNumber())){
-            throw new ResourceNotFoundException("Email or Phone Number is already exists");
+        if (
+                userService.isUserEmailOrPhoneExist(
+                        request.getEmail(), request.getPhoneNumber()
+                )
+        ) {
+            throw new IllegalArgumentException("Email or Phone Number is already exists");
         }
 
         User user = authenticationMapper.toEntity(request);
-        userRepository.save(user);
+        userService.saveUser(user);
 
-        return authenticationMapper.toAuthResponse(jwtService.generateToken(user));
+        return authenticationMapper
+                .toAuthResponse(jwtService.generateToken(user));
     }
 
     @Override
@@ -47,9 +49,9 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                         request.getEmail(), request.getPassword()
                 )
         );
-
         User user = userService.findUserByEmail(request.getEmail());
 
-        return authenticationMapper.toAuthResponse(jwtService.generateToken(user));
+        return authenticationMapper
+                .toAuthResponse(jwtService.generateToken(user));
     }
 }

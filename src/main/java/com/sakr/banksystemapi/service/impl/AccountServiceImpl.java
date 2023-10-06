@@ -1,19 +1,19 @@
 package com.sakr.banksystemapi.service.impl;
 
 import com.sakr.banksystemapi.entity.Account;
-import com.sakr.banksystemapi.entity.Transaction;
 import com.sakr.banksystemapi.entity.User;
-import com.sakr.banksystemapi.exceptions.customexceptions.ResourceNotFoundException;
+import com.sakr.banksystemapi.exceptions.customexceptions.NotAuthToSeeResourceException;
 import com.sakr.banksystemapi.mapper.AccountMapper;
 import com.sakr.banksystemapi.mapper.TransactionHistoryMapper;
 import com.sakr.banksystemapi.model.account.AccountResponseModel;
-import com.sakr.banksystemapi.model.transaction.TransactionHistoryModel;
+import com.sakr.banksystemapi.model.account.AccountTransactionHistoryModel;
 import com.sakr.banksystemapi.repository.AccountRepository;
 import com.sakr.banksystemapi.repository.TransactionRepository;
 import com.sakr.banksystemapi.repository.UserRepository;
 import com.sakr.banksystemapi.service.AccountGeneratorService;
 import com.sakr.banksystemapi.service.AccountService;
-import com.sakr.banksystemapi.service.UserInfoService;
+import com.sakr.banksystemapi.service.UserService;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -25,7 +25,7 @@ import java.util.List;
 public class AccountServiceImpl implements AccountService {
 
     private final UserRepository userRepository;
-    private final UserInfoService userService;
+    private final UserService userService;
     private final AccountGeneratorService accountGeneratorService;
     private final AccountRepository accountRepository;
     private final TransactionRepository transactionRepository;
@@ -35,45 +35,64 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public AccountResponseModel createAccount() {
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
-
         User user = userService.findUserByEmail(email);
 
-        Account account= accountGeneratorService.generateNewAccount(user);
+        Account account = accountGeneratorService.generateNewAccount(user);
 
-        return accountMapper.toResponse(account);
+        return accountMapper
+                .toResponse(accountRepository.save(account));
     }
 
     @Override
     public List<AccountResponseModel> getUserAccounts() {
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
-
         User user = userService.findUserByEmail(email);
 
-        List<Account> accounts= userRepository.getAllUserAccountsByUserId(user.getId());
-
-        return accounts.stream().map(accountMapper::toResponse).toList();
+        return userRepository.getAllUserAccountsByUserId(user.getId())
+                .stream()
+                .map(accountMapper::toResponse)
+                .toList();
     }
 
     @Override
-    public List<TransactionHistoryModel> transactionHistory(int cardId) {
-        Account account = accountRepository.findById(cardId)
-                .orElseThrow(() -> new ResourceNotFoundException("there is no such account"));
+    public List<AccountTransactionHistoryModel> accountTransactionHistory(int cardId) {
+        Account account = findAccountById(cardId);
 
         validateAuthToSeeTransactionHistory(account);
 
-        List<Transaction> transactions = transactionRepository.findByAccount(account);
-
-        return transactions.stream().map(transactionHistoryMapper::toResponse).toList();
+        return transactionRepository.findByAccount(account)
+                .stream()
+                .map(transactionHistoryMapper::toResponse)
+                .toList();
     }
 
-    private void validateAuthToSeeTransactionHistory(Account account){
+    @Override
+    public Account findAccountByCardNumber(String cardNumber) {
+        return accountRepository.findByCardNumber(cardNumber)
+                .orElseThrow(()-> new IllegalArgumentException("Account Not Found!!"));
+
+    }
+
+    @Override
+    public Account findAccountById(int cardId) {
+        return accountRepository.findById(cardId)
+                .orElseThrow(() -> new EntityNotFoundException("Account Not Found!"));
+
+    }
+
+    @Override
+    public boolean isValidAccount(String cardNumber, String cvv) {
+        return accountRepository
+                .existsByCardNumberAndCvv(cardNumber, cvv);
+    }
+
+    private void validateAuthToSeeTransactionHistory(Account account) {
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
 
         User user = userService.findUserByEmail(email);
 
-
-        if(!account.getUser().equals(user))
-            throw new ResourceNotFoundException("You Are not Auth to See that transaction History");
+        if (!account.getUser().equals(user))
+            throw new NotAuthToSeeResourceException("Not Auth To See Transaction History");
     }
 
 }

@@ -1,4 +1,4 @@
-package com.sakr.banksystemapi.model.transaction;
+package com.sakr.banksystemapi.model.account;
 
 import com.sakr.banksystemapi.entity.enumtypes.TransactionType;
 import lombok.AllArgsConstructor;
@@ -13,7 +13,7 @@ import java.sql.Timestamp;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class TransactionHistoryModel {
+public class AccountTransactionHistoryModel {
     private int id;
     private TransactionType transactionType;
     private BigDecimal amount;

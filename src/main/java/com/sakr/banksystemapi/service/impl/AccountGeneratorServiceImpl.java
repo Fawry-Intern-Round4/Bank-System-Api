@@ -20,8 +20,7 @@ public class AccountGeneratorServiceImpl implements AccountGeneratorService {
 
     @Override
     public Account generateNewAccount(User user) {
-        Account account =
-                Account.builder()
+        return Account.builder()
                 .cardNumber(uniqueCardNumber())
                 .cvv(cvv())
                 .balance(BigDecimal.valueOf(0.0))
@@ -29,8 +28,6 @@ public class AccountGeneratorServiceImpl implements AccountGeneratorService {
                 .createdAt(new Timestamp(System.currentTimeMillis()))
                 .user(user)
                 .build();
-
-        return accountRepository.save(account);
     }
 
     private String uniqueCardNumber() {
@@ -44,7 +41,6 @@ public class AccountGeneratorServiceImpl implements AccountGeneratorService {
     }
 
     private String cvv() {
-
         return generateNumber(3);
     }
 

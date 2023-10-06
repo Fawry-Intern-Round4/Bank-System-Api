@@ -6,6 +6,8 @@ import com.sakr.banksystemapi.model.auth.RegisterRequestModel;
 import com.sakr.banksystemapi.service.AuthenticationService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,18 +21,24 @@ public class AuthenticationController {
     private final AuthenticationService userService;
 
     @PostMapping("/register")
-    public AuthenticationResponseModel register(
+    public ResponseEntity<AuthenticationResponseModel> register(
             @Valid @RequestBody RegisterRequestModel request
     ) {
-        return userService.register(request);
+        return new ResponseEntity<>(
+                userService.register(request),
+                HttpStatus.CREATED
+        );
     }
 
 
     @PostMapping("/authenticate")
-    public AuthenticationResponseModel authenticate(
+    public ResponseEntity<AuthenticationResponseModel> authenticate(
             @Valid @RequestBody AuthenticationRequestModel request
     ) {
-        return userService.authenticate(request);
+        return new ResponseEntity<>(
+                userService.authenticate(request),
+                HttpStatus.OK
+        );
     }
 
 }

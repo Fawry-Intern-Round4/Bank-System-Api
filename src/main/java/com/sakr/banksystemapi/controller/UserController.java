@@ -1,8 +1,10 @@
 package com.sakr.banksystemapi.controller;
 
 import com.sakr.banksystemapi.model.user.UserResponseModel;
-import com.sakr.banksystemapi.service.UserInfoService;
+import com.sakr.banksystemapi.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -10,14 +12,17 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/user")
 @RequiredArgsConstructor
-public class UserInfoController {
+public class UserController {
 
-    private final UserInfoService userInfoService;
+    private final UserService userService;
 
 
     @GetMapping()
-    public UserResponseModel getUserInfo() {
-        return userInfoService.getMyProfileInfo();
+    public ResponseEntity<UserResponseModel> getUserInfo() {
+        return new ResponseEntity<>(
+                userService.getMyProfileInfo(),
+                HttpStatus.OK
+        );
     }
 
 }

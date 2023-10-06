@@ -2,7 +2,7 @@ package com.sakr.banksystemapi.mapper.Impl;
 
 import com.sakr.banksystemapi.entity.Transaction;
 import com.sakr.banksystemapi.mapper.TransactionHistoryMapper;
-import com.sakr.banksystemapi.model.transaction.TransactionHistoryModel;
+import com.sakr.banksystemapi.model.account.AccountTransactionHistoryModel;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -10,8 +10,8 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class TransactionHistoryMapperImpl implements TransactionHistoryMapper {
     @Override
-    public TransactionHistoryModel toResponse(Transaction transaction) {
-        return TransactionHistoryModel
+    public AccountTransactionHistoryModel toResponse(Transaction transaction) {
+        return AccountTransactionHistoryModel
                 .builder()
                 .id(transaction.getId())
                 .transactionType(transaction.getTransactionType())

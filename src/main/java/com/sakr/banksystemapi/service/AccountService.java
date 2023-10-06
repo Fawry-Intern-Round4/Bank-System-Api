@@ -1,7 +1,8 @@
 package com.sakr.banksystemapi.service;
 
+import com.sakr.banksystemapi.entity.Account;
 import com.sakr.banksystemapi.model.account.AccountResponseModel;
-import com.sakr.banksystemapi.model.transaction.TransactionHistoryModel;
+import com.sakr.banksystemapi.model.account.AccountTransactionHistoryModel;
 
 import java.util.List;
 
@@ -10,5 +11,11 @@ public interface AccountService {
 
     List<AccountResponseModel> getUserAccounts();
 
-    List<TransactionHistoryModel> transactionHistory(int cardId);
+    List<AccountTransactionHistoryModel> accountTransactionHistory(int cardId);
+
+    Account findAccountByCardNumber(String cardNumber);
+
+    Account findAccountById(int cardId);
+
+    boolean isValidAccount(String cardNumber, String cvv);
 }
