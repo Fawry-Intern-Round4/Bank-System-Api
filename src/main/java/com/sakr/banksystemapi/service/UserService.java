@@ -14,7 +14,7 @@ public interface UserService {
 
     UserResponseModel getMyProfileInfo();
 
-    DeactivateResponseModel deactivateMyAccount();
+    DeactivateResponseModel deactivateMyUser();
 
     User getMyUser();
 

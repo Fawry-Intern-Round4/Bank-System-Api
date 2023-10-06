@@ -25,9 +25,9 @@ public class UserController {
     }
 
     @DeleteMapping
-    public ResponseEntity<DeactivateResponseModel> deactivateMyAccount(){
+    public ResponseEntity<DeactivateResponseModel> deactivateMyUser(){
         return new ResponseEntity<>(
-                userService.deactivateMyAccount(),
+                userService.deactivateMyUser(),
                 HttpStatus.OK
         );
     }

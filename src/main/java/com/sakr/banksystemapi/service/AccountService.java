@@ -1,6 +1,7 @@
 package com.sakr.banksystemapi.service;
 
 import com.sakr.banksystemapi.entity.Account;
+import com.sakr.banksystemapi.model.DeactivateResponseModel;
 import com.sakr.banksystemapi.model.account.AccountResponseModel;
 import com.sakr.banksystemapi.model.account.AccountTransactionHistoryModel;
 
@@ -18,4 +19,8 @@ public interface AccountService {
     Account findAccountById(int cardId);
 
     boolean isAccountExist(String cardNumber, String cvv);
+
+    DeactivateResponseModel deactivateMyAccount(int accountId);
+
+    DeactivateResponseModel activateMyAccount(int accountId);
 }

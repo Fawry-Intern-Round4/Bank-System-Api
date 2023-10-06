@@ -29,14 +29,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public DeactivateResponseModel deactivateMyAccount() {
+    public DeactivateResponseModel deactivateMyUser() {
         User user = getMyUser();
 
         user.setStatus(false);
         userRepository.save(user);
 
         return deactivateAccountMapper
-                .toResponse("You Account Now Is Deactivate, You Can Active It Again By Login");
+                .toResponse("You User Now Is Deactivate, You Can Active It Again By Login");
     }
 
     @Override

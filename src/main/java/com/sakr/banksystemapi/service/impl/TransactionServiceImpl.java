@@ -3,7 +3,6 @@ package com.sakr.banksystemapi.service.impl;
 import com.sakr.banksystemapi.entity.Account;
 import com.sakr.banksystemapi.entity.Transaction;
 import com.sakr.banksystemapi.entity.enumtypes.TransactionType;
-import com.sakr.banksystemapi.exceptions.customexceptions.NotAuthToSeeResourceException;
 import com.sakr.banksystemapi.model.transaction.TransactionRequestModel;
 import com.sakr.banksystemapi.repository.TransactionRepository;
 import com.sakr.banksystemapi.service.AccountService;

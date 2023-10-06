@@ -5,7 +5,6 @@ import com.sakr.banksystemapi.mapper.AuthenticationMapper;
 import com.sakr.banksystemapi.model.auth.AuthenticationRequestModel;
 import com.sakr.banksystemapi.model.auth.AuthenticationResponseModel;
 import com.sakr.banksystemapi.model.auth.RegisterRequestModel;
-import com.sakr.banksystemapi.repository.UserRepository;
 import com.sakr.banksystemapi.security.JwtService;
 import com.sakr.banksystemapi.service.AuthenticationService;
 import com.sakr.banksystemapi.service.UserService;
@@ -44,7 +43,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     @Override
     public AuthenticationResponseModel authenticate(AuthenticationRequestModel request) {
         User user = userService.findUserByEmail(request.getEmail());
-        if(!user.getStatus()){
+        if (!user.getStatus()) {
             enableAccountOnLogin(user);
         }
 
@@ -57,7 +56,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         return authenticationMapper.toAuthResponse(jwtService.generateToken(user));
     }
 
-    private void enableAccountOnLogin(User user){
+    private void enableAccountOnLogin(User user) {
         user.setStatus(true);
         userService.saveUser(user);
     }
