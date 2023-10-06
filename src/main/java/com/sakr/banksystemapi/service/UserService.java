@@ -1,6 +1,7 @@
 package com.sakr.banksystemapi.service;
 
 import com.sakr.banksystemapi.entity.User;
+import com.sakr.banksystemapi.model.DeactivateResponseModel;
 import com.sakr.banksystemapi.model.user.UserResponseModel;
 
 
@@ -12,5 +13,9 @@ public interface UserService {
     User saveUser(User user);
 
     UserResponseModel getMyProfileInfo();
+
+    DeactivateResponseModel deactivateMyAccount();
+
+    User getMyUser();
 
 }

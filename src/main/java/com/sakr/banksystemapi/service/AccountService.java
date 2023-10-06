@@ -17,5 +17,5 @@ public interface AccountService {
 
     Account findAccountById(int cardId);
 
-    boolean isValidAccount(String cardNumber, String cvv);
+    boolean isAccountExist(String cardNumber, String cvv);
 }

@@ -1,7 +1,9 @@
 package com.sakr.banksystemapi.service.impl;
 
 import com.sakr.banksystemapi.entity.User;
+import com.sakr.banksystemapi.mapper.DeactivateAccountMapper;
 import com.sakr.banksystemapi.mapper.UserMapper;
+import com.sakr.banksystemapi.model.DeactivateResponseModel;
 import com.sakr.banksystemapi.model.user.UserResponseModel;
 import com.sakr.banksystemapi.repository.UserRepository;
 import com.sakr.banksystemapi.service.UserService;
@@ -17,13 +19,30 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final UserMapper userMapper;
+    private final DeactivateAccountMapper deactivateAccountMapper;
 
     @Override
     public UserResponseModel getMyProfileInfo() {
-        String email = SecurityContextHolder.getContext().getAuthentication().getName();
-        User user = findUserByEmail(email);
+        User user = getMyUser();
 
         return userMapper.toResponse(user);
+    }
+
+    @Override
+    public DeactivateResponseModel deactivateMyAccount() {
+        User user = getMyUser();
+
+        user.setStatus(false);
+        userRepository.save(user);
+
+        return deactivateAccountMapper
+                .toResponse("You Account Now Is Deactivate, You Can Active It Again By Login");
+    }
+
+    @Override
+    public User getMyUser() {
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        return  findUserByEmail(email);
     }
 
     @Override

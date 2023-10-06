@@ -43,15 +43,22 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     @Override
     public AuthenticationResponseModel authenticate(AuthenticationRequestModel request) {
+        User user = userService.findUserByEmail(request.getEmail());
+        if(!user.getStatus()){
+            enableAccountOnLogin(user);
+        }
 
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         request.getEmail(), request.getPassword()
                 )
         );
-        User user = userService.findUserByEmail(request.getEmail());
 
-        return authenticationMapper
-                .toAuthResponse(jwtService.generateToken(user));
+        return authenticationMapper.toAuthResponse(jwtService.generateToken(user));
+    }
+
+    private void enableAccountOnLogin(User user){
+        user.setStatus(true);
+        userService.saveUser(user);
     }
 }

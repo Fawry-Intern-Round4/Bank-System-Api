@@ -34,8 +34,7 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public AccountResponseModel createAccount() {
-        String email = SecurityContextHolder.getContext().getAuthentication().getName();
-        User user = userService.findUserByEmail(email);
+        User user = userService.getMyUser();
 
         Account account = accountGeneratorService.generateNewAccount(user);
 
@@ -45,8 +44,7 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public List<AccountResponseModel> getUserAccounts() {
-        String email = SecurityContextHolder.getContext().getAuthentication().getName();
-        User user = userService.findUserByEmail(email);
+        User user = userService.getMyUser();
 
         return userRepository.getAllUserAccountsByUserId(user.getId())
                 .stream()
@@ -81,15 +79,13 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public boolean isValidAccount(String cardNumber, String cvv) {
+    public boolean isAccountExist(String cardNumber, String cvv) {
         return accountRepository
                 .existsByCardNumberAndCvv(cardNumber, cvv);
     }
 
     private void validateAuthToSeeTransactionHistory(Account account) {
-        String email = SecurityContextHolder.getContext().getAuthentication().getName();
-
-        User user = userService.findUserByEmail(email);
+        User user = userService.getMyUser();
 
         if (!account.getUser().equals(user))
             throw new NotAuthToSeeResourceException("Not Auth To See Transaction History");

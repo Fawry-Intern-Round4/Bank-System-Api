@@ -1,13 +1,12 @@
 package com.sakr.banksystemapi.controller;
 
+import com.sakr.banksystemapi.model.DeactivateResponseModel;
 import com.sakr.banksystemapi.model.user.UserResponseModel;
 import com.sakr.banksystemapi.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/user")
@@ -21,6 +20,14 @@ public class UserController {
     public ResponseEntity<UserResponseModel> getUserInfo() {
         return new ResponseEntity<>(
                 userService.getMyProfileInfo(),
+                HttpStatus.OK
+        );
+    }
+
+    @DeleteMapping
+    public ResponseEntity<DeactivateResponseModel> deactivateMyAccount(){
+        return new ResponseEntity<>(
+                userService.deactivateMyAccount(),
                 HttpStatus.OK
         );
     }
