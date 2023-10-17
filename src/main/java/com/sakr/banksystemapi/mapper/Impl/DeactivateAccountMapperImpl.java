@@ -1,7 +1,7 @@
 package com.sakr.banksystemapi.mapper.Impl;
 
 import com.sakr.banksystemapi.mapper.DeactivateAccountMapper;
-import com.sakr.banksystemapi.model.DeactivateResponseModel;
+import com.sakr.banksystemapi.model.account.DeactivateResponseModel;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

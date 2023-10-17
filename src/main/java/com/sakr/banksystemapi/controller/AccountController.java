@@ -1,6 +1,6 @@
 package com.sakr.banksystemapi.controller;
 
-import com.sakr.banksystemapi.model.DeactivateResponseModel;
+import com.sakr.banksystemapi.model.account.DeactivateResponseModel;
 import com.sakr.banksystemapi.model.account.AccountResponseModel;
 import com.sakr.banksystemapi.model.account.AccountTransactionHistoryModel;
 import com.sakr.banksystemapi.service.AccountService;

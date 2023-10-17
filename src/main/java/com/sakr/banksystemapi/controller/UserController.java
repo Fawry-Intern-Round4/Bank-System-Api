@@ -1,6 +1,6 @@
 package com.sakr.banksystemapi.controller;
 
-import com.sakr.banksystemapi.model.DeactivateResponseModel;
+import com.sakr.banksystemapi.model.account.DeactivateResponseModel;
 import com.sakr.banksystemapi.model.user.UserResponseModel;
 import com.sakr.banksystemapi.service.UserService;
 import lombok.RequiredArgsConstructor;

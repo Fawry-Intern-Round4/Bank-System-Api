@@ -3,7 +3,7 @@ package com.sakr.banksystemapi.service.impl;
 import com.sakr.banksystemapi.entity.User;
 import com.sakr.banksystemapi.mapper.DeactivateAccountMapper;
 import com.sakr.banksystemapi.mapper.UserMapper;
-import com.sakr.banksystemapi.model.DeactivateResponseModel;
+import com.sakr.banksystemapi.model.account.DeactivateResponseModel;
 import com.sakr.banksystemapi.model.user.UserResponseModel;
 import com.sakr.banksystemapi.repository.UserRepository;
 import com.sakr.banksystemapi.service.UserService;

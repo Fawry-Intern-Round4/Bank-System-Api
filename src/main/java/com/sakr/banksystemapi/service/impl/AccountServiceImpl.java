@@ -6,7 +6,7 @@ import com.sakr.banksystemapi.exceptions.customexceptions.NotAuthToSeeResourceEx
 import com.sakr.banksystemapi.mapper.AccountMapper;
 import com.sakr.banksystemapi.mapper.DeactivateAccountMapper;
 import com.sakr.banksystemapi.mapper.TransactionHistoryMapper;
-import com.sakr.banksystemapi.model.DeactivateResponseModel;
+import com.sakr.banksystemapi.model.account.DeactivateResponseModel;
 import com.sakr.banksystemapi.model.account.AccountResponseModel;
 import com.sakr.banksystemapi.model.account.AccountTransactionHistoryModel;
 import com.sakr.banksystemapi.repository.AccountRepository;
