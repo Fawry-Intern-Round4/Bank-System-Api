@@ -1,5 +1,6 @@
 package com.sakr.banksystemapi.controller;
 
+import com.sakr.banksystemapi.model.ResponseModel;
 import com.sakr.banksystemapi.model.account.DeactivateResponseModel;
 import com.sakr.banksystemapi.model.user.UserResponseModel;
 import com.sakr.banksystemapi.service.UserService;
@@ -17,19 +18,30 @@ public class UserController {
 
 
     @GetMapping()
-    public ResponseEntity<UserResponseModel> getUserInfo() {
-        return new ResponseEntity<>(
-                userService.getMyProfileInfo(),
-                HttpStatus.OK
-        );
+    public ResponseEntity<ResponseModel> getUserInfo() {
+
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(ResponseModel
+                        .builder()
+                        .success(true)
+                        .payload(userService.getMyProfileInfo())
+                        .build()
+                );
     }
 
     @DeleteMapping
-    public ResponseEntity<DeactivateResponseModel> deactivateMyUser(){
-        return new ResponseEntity<>(
-                userService.deactivateMyUser(),
-                HttpStatus.OK
-        );
+    public ResponseEntity<ResponseModel> deactivateMyUser(){
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(ResponseModel
+                        .builder()
+                        .success(true)
+                        .payload(userService.deactivateMyUser())
+                        .build()
+                );
     }
+
+
 
 }

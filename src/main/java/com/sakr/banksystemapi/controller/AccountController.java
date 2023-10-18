@@ -1,5 +1,6 @@
 package com.sakr.banksystemapi.controller;
 
+import com.sakr.banksystemapi.model.ResponseModel;
 import com.sakr.banksystemapi.model.account.DeactivateResponseModel;
 import com.sakr.banksystemapi.model.account.AccountResponseModel;
 import com.sakr.banksystemapi.model.account.AccountTransactionHistoryModel;
@@ -20,49 +21,70 @@ public class AccountController {
     private final AccountService accountService;
 
     @GetMapping
-    public ResponseEntity<List<AccountResponseModel>> getUserAccounts() {
-        return new ResponseEntity<>(
-                accountService.getUserAccounts(),
-                HttpStatus.OK
-        );
+    public ResponseEntity<ResponseModel> getUserAccounts() {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(ResponseModel
+                        .builder()
+                        .success(true)
+                        .payload(accountService.getUserAccounts())
+                        .build()
+                );
     }
 
     @GetMapping("/{accountId}")
-    public ResponseEntity<List<AccountTransactionHistoryModel>> getAccountHistory(
+    public ResponseEntity<ResponseModel> getAccountHistory(
             @Valid @PathVariable int accountId
     ) {
-        return new ResponseEntity<>(
-                accountService.accountTransactionHistory(accountId),
-                HttpStatus.OK
-        );
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(ResponseModel
+                        .builder()
+                        .success(true)
+                        .payload(accountService.accountTransactionHistory(accountId))
+                        .build()
+                );
     }
 
     @PostMapping
-    public ResponseEntity<AccountResponseModel> createAccount() {
-        return new ResponseEntity<>(
-                accountService.createAccount(),
-                HttpStatus.CREATED
-        );
+    public ResponseEntity<ResponseModel> createAccount() {
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(ResponseModel
+                        .builder()
+                        .success(true)
+                        .payload(accountService.createAccount())
+                        .build()
+                );
+
     }
 
     @PostMapping(value = "/{accountId}")
-    public ResponseEntity<DeactivateResponseModel> activateMyAccount(
+    public ResponseEntity<ResponseModel> activateMyAccount(
             @Valid @PathVariable int accountId
     ){
-        return new ResponseEntity<>(
-                accountService.activateMyAccount(accountId),
-                HttpStatus.OK
-        );
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(ResponseModel
+                        .builder()
+                        .success(true)
+                        .payload(accountService.activateMyAccount(accountId))
+                        .build()
+                );
     }
 
     @DeleteMapping(value = "/{accountId}")
-    public ResponseEntity<DeactivateResponseModel> deactivateMyAccount(
+    public ResponseEntity<ResponseModel> deactivateMyAccount(
             @Valid @PathVariable int accountId
     ){
-        return new ResponseEntity<>(
-                accountService.deactivateMyAccount(accountId),
-                HttpStatus.OK
-        );
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(ResponseModel
+                        .builder()
+                        .success(true)
+                        .payload(accountService.deactivateMyAccount(accountId))
+                        .build()
+                );
     }
 
 }
