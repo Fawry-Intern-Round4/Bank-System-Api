@@ -59,7 +59,7 @@ public class AccountController {
 
     }
 
-    @PostMapping(value = "/{accountId}")
+    @PostMapping(value = "/{accountId}" ,params = "activate")
     public ResponseEntity<ResponseModel> activateMyAccount(
             @Valid @PathVariable int accountId
     ){
@@ -73,7 +73,7 @@ public class AccountController {
                 );
     }
 
-    @DeleteMapping(value = "/{accountId}")
+    @PostMapping (value = "/{accountId}", params = "deactivate")
     public ResponseEntity<ResponseModel> deactivateMyAccount(
             @Valid @PathVariable int accountId
     ){
