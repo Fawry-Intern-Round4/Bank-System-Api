@@ -30,7 +30,7 @@ public class UserController {
                 );
     }
 
-    @DeleteMapping
+    @PutMapping
     public ResponseEntity<ResponseModel> deactivateMyUser(){
         return ResponseEntity
                 .status(HttpStatus.OK)

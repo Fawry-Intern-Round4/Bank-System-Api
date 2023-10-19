@@ -17,14 +17,9 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 @RequiredArgsConstructor
-public class ApplicationConfig implements WebMvcConfigurer {
+public class ApplicationConfig {
 
     private final UserRepository userRepository;
-
-    @Override
-    public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**");
-    }
     @Bean
     public UserDetailsService userDetailsService() {
         return username -> userRepository.findByEmail(username)
