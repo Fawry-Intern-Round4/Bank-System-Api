@@ -7,7 +7,7 @@ This is a Spring Boot application for a banking system. It provides functionalit
 ### API URL at render
 `https://bank-api-service-iiyh.onrender.com`
 
-### Functionality
+### Functionality 
 
 The Spring Boot bank application provides the following functionality:
 - Users: Manages user information for the banking system. Users have a user role, first name, last name, email, password, phone number, address, status, and creation date. 
